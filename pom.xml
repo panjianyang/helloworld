@@ -1,0 +1,177 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 继承Spring Boot的默认父工程 -->
+    <!-- Spring Boot 父工程 -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.4.RELEASE</version>
+    </parent>
+
+    <groupId>com.itheima</groupId>
+    <artifactId>springboot-shiro</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+
+    <!-- 导入依赖 -->
+    <dependencies>
+        <!-- 导入web支持：SpringMVC开发支持，Servlet相关的程序 -->
+        <!-- web支持，SpringMVC， Servlet支持等 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
+
+
+        <!-- 导入aop的支持 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+        <!-- 导入thymeleaf依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
+        <!-- shiro与spring整合依赖 -->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-spring</artifactId>
+            <version>1.4.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.1.10</version>
+        </dependency>
+
+        <!-- mysql -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>sqljdbc4</artifactId>
+            <version>4.0</version>
+        </dependency>
+
+        <!--<dependency>--><!--spring使用-->
+        <!--<groupId>com.github.pagehelper</groupId>-->
+        <!--<artifactId>pagehelper</artifactId>-->
+        <!--<version>4.1.6</version>-->
+        <!--</dependency>-->
+
+        <dependency>   <!--springboot使用-->
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+
+
+        <!-- SpringBoot的Mybatis启动器 -->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+
+        <!-- thymel对shiro的扩展坐标 -->
+        <dependency>
+            <groupId>com.github.theborakompanioni</groupId>
+            <artifactId>thymeleaf-extras-shiro</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-ehcache</artifactId>
+            <version>1.4.0</version>
+        </dependency>
+
+
+    </dependencies>
+
+    <!-- 修改参数 -->
+    <properties>
+        <!-- 修改JDK的编译版本为1.8 -->
+        <java.version>1.8</java.version>
+        <!-- 修改thymeleaf的版本 -->
+        <thymeleaf.version>3.0.2.RELEASE</thymeleaf.version>
+        <thymeleaf-layout-dialect.version>2.0.4</thymeleaf-layout-dialect.version>
+        <argLine>-Dfile.encoding=UTF-8</argLine>
+    </properties>
+
+
+    <build>
+        <!--解决项目运行后mapper.xml文件找不到情况-->
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <!-- spring-boot:run 中文乱码解决 -->
+                <configuration>
+                    <fork>true</fork>
+                    <!--增加jvm参数-->
+                    <jvmArguments>-Dfile.encoding=UTF-8</jvmArguments>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>springloaded</artifactId>
+                        <version>1.2.5.RELEASE</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

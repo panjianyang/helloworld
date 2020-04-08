@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="off">
+    <appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch） -->
+            <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
+        </Console>
+        <RollingFile name="RollingFile" fileName="logs/app.log"
+                     filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout pattern="%d{yyyy.MM.dd 'at' HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n"/>
+            <SizeBasedTriggeringPolicy size="50 MB" />
+        </RollingFile>
+        <!-- sql：保存sql相关日志 -->
+        <RollingFile name="sql" fileName="logs/sql/sql.log"
+                     filePattern="${sys:user.home}/logs/sql/sql-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss}] [%p] - %l%n%m%n"/>
+            <SizeBasedTriggeringPolicy size="50 MB" />
+        </RollingFile>
+
+    </appenders>
+    <loggers>
+
+        <logger name="com.itheima.mapper" level="debug" additivity="true">
+            <appender-ref ref="Console"/>
+        </logger>
+
+        <!-- 3：打印sql日志 -->
+        <Logger name="com.itheima.mapper" level="DEBUG" additivity="true">
+            <AppenderRef ref="sql" />
+        </Logger>
+
+        <root level="info">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="RollingFile"/>
+        </root>
+    </loggers>
+</configuration>
