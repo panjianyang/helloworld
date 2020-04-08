@@ -151,7 +151,7 @@ public class UserController {
         logger.info("application.pro.msg：{}",msg);
         logger.info("config.pro.name：{}",propConfig.getName());
         logger.info("config.pro.password：{}",propConfig.getPassword());
-        logger.info("====");
+        logger.info("====1");
         return "login";
     }
 }
